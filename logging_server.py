@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route('/log', methods=['POST'])
 def log():
     message = request.get_data(as_text=True)
-    print({message})
+    print({message.message})
     return "Log received", 200
 
 @app.route('/test', methods=['GET'])
