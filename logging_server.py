@@ -32,11 +32,11 @@ def timer_function():
 @app.route('/log', methods=['POST'])
 def log():
     global timer_thread, last_log_message, last_iteration_time, iteration_times
-    message = request.json
+    message = request.json['log']
     current_time = datetime.now()
-    print(message['message'])
+    print(message)
 
-    if message['message'] == "Starting new iteration":
+    if message == "Starting new iteration":
         if last_iteration_time is not None:
             iteration_duration = (current_time - last_iteration_time).total_seconds()
             iteration_times.append(iteration_duration)
@@ -51,7 +51,7 @@ def log():
         timer_thread.join()
 
     # Update last_log_message
-    last_log_message = message['message']
+    last_log_message = message
 
     # Reset the event and start a new timer
     new_log_event.clear()
